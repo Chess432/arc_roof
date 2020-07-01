@@ -22,13 +22,26 @@ contact_page,
 services_page,
 about_page
 ) 
+from blog.views import(
+    blog_post_detail_view,
+    blog_post_list_view,
+    blog_post_create_view,
+    blog_post_update_view,
+    blog_post_delete_view
+)
 
 urlpatterns = [
     path('', home_page),
     path('contact/', contact_page),
     path('services/', services_page),
     path('about/', about_page),
+    path('blog/', blog_post_list_view),
+    path('blog/<str:slug>/', blog_post_detail_view),
+    path('blog/<str:slug>/edit/', blog_post_detail_view),
+    path('blog/<str:slug>/delete/', blog_post_detail_view),
+    path('blog-new/', blog_post_create_view),
     path('admin/', admin.site.urls),
+
 ]
 
 

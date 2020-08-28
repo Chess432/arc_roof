@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block head_title %}{{ title }} - {% endblock %}
+{% block content %}
+<div class="container">
+ <!-- ======= Blog Section ======= -->
+ <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Blog</h2>
+
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li>{{ object.title }}</li>
+        </ol>
+      </div>
+
+    </div>
+  </section>
+  <!-- End Blog Section -->
+  <section class="blog" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-8 entries">
+            <article class="entry entry-single">
+                {% include 'blog/list-inline.html' with blog_post=object detail=True %}
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <a href="{{ object.get_edit_url }}" class="btn btn-success">Update</a>
+                        <a href="{{ object.get_delete_url }}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                {% endif %}
+            </article>
+        </div><!-- End blog entries list -->
+        <div class="col-lg-4">
+            <div class="sidebar">
+                <h3 class="sidebar-title">Recent Posts</h3>
+              <div class="sidebar-item recent-posts">
+                {% for object in object_list %}
+                    <div class="post-item clearfix">
+                        <img src="assets/img/recent-posts-1.jpg" alt="">
+                        <h4><a href="blog-single.html">{{ object.title }}</a></h4>
+                    </div>
+                {% endfor %}
+              </div>
+            </div>
+
+        </div>
+    </div><!-- End row -->
+
+</div><!-- End container -->
+
+</section><!-- End Blog Section -->
+
+
+
+
+
+</div>
+{% endblock %}

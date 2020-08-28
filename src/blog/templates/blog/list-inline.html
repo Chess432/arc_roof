@@ -1,0 +1,35 @@
+<article class="entry {% if not blog_post.publish_date %} bg-dark text-light {% endif %}">
+   {% if blog_post.image %}
+    <div class="entry-img">
+        <a href="{{ blog_post.get_absolute_url }}">
+            <img src="{{ blog_post.image.url }}" alt="" class="img-fluid">
+        </a>
+    </div>
+    {% endif %}
+
+    <h2 class="entry-title">
+      <a href="{{ blog_post.get_absolute_url }}">{{ blog_post.title }}</a>
+    </h2>
+    <div class="entry-meta">
+        <ul>
+          <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="{{ blog_post.get_absolute_url }}"><time datetime="2020-01-01">{{ blog_post.publish_date }}</time></a></li>
+          
+        </ul>
+      </div>
+    <div class="entry-content">
+      <p>
+        {% if truncate %}
+            {{ blog_post.content|linebreaks|truncatewords:30 }}
+        {% else %}
+            {{ blog_post.content|linebreaks }}
+        {% endif %}
+        </p>
+        {% if not detail %}
+        {% if not blog_post.publish_date %} Draft {% endif %}
+      <div class="read-more">
+        <a href="{{ blog_post.get_absolute_url }}">Read More</a>
+      </div>
+      {% endif %}
+    </div>
+
+  </article><!-- End blog entry -->

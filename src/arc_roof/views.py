@@ -1,24 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .forms import ContactForm
+from services.models import Service
 
 
 def home_page(request):
-    context = {"title": "Home"}
+    qs = Service.objects.all()
+    context = {"title": "Home", "services_list": qs}
     return render(request, "home.html", context)
 
 
-
-def about_page(request):
-    context = {"title": "About us"}
-    return render(request, "about.html", context)
-
-
-
-def services_page(request):
-    context = {"title": "Services"}
-    return render(request, "services.html", context)
-
-
 def contact_page(request):
-    context = {"title": "Contact us"}
+    form  = ContactForm(request.POST or None)
+    if form.is_valid():
+        print(form.cleaned_data)
+        form = ContactForm()
+    context = {"title": "Contact us", "form": form}
     return render(request, "contact.html", context)
